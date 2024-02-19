@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const UpdateTransformationPage = () => {
   return (
@@ -6,4 +6,4 @@ const UpdateTransformationPage = () => {
   )
 }
 
-export default UpdateTransformationPage
+export default UpdateTransformationPage;
