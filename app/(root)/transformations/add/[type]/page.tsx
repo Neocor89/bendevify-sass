@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 const AddTransformationTypePage = () => {
   return (
@@ -6,4 +6,4 @@ const AddTransformationTypePage = () => {
   )
 }
 
-export default AddTransformationTypePage
+export default AddTransformationTypePage;
