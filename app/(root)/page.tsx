@@ -1,5 +1,9 @@
 import { UserButton } from '@clerk/nextjs';
 
+// TODO
+//! RESTART HERE
+//: TESTING CLERCK AUTH
+
 const Home = () => {
   return (
     <div>
