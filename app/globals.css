@@ -159,6 +159,10 @@
   .p-14-medium {
     @apply font-medium text-[14px] leading-[120%];
   }
+  
+  .p-14-regular {
+    @apply font-normal text-[14px] leading-[120%];
+  }
 
   /* 10 */
   .p-10-medium {
