@@ -2,9 +2,13 @@
 
 import { navLinks } from '@/constants';
 import { SignedIn } from '@clerk/nextjs';
+
 import Image from 'next/image'; 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+
+// TODO
+//: RESTART HERE 👇
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -31,7 +35,16 @@ const Sidebar = () => {
                   <li key={navLink.route} className={`sidebar-nav_element py-1 group ${
                     isActive ? "bg-purple-gradient text-white" : "text-gray-700"
                   }`}>
-                    {navLink.label}
+                    <Link className="sidebar-link" href={navLink.route}>
+                      <Image
+                        src={navLink.icon}
+                        width={24}
+                        height={24}
+                        alt="link logo"
+                        className={`${isActive && "brightness-200"}`}
+                        />
+                        {navLink.label}
+                    </Link>
                   </li>
                 )
               })}
