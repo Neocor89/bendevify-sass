@@ -1,7 +1,7 @@
 "use client";
 
 import { navLinks } from '@/constants';
-import { SignedIn, SignedOut } from '@clerk/nextjs';
+import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 
 import Image from 'next/image'; 
 import Link from 'next/link';
@@ -29,7 +29,7 @@ const Sidebar = () => {
         <nav className="sidebar-nav">
           <SignedIn>
             <ul className="sidebar-nav_elements">
-              {navLinks.map((navLink) => {
+              {navLinks.slice(0, 6).map((navLink) => {
                 const isActive = navLink.route === pathname
 
                 return(
@@ -49,6 +49,33 @@ const Sidebar = () => {
                   </li>
                 )
               })}
+              </ul>
+
+              <ul className="sidebar-nav_elements">
+                {navLinks.slice(6).map((navLink) => {
+                  const isActive = navLink.route === pathname
+
+                  return(
+                    <li key={navLink.route} className={`sidebar-nav_element py-1 group ${
+                      isActive ? "bg-purple-gradient text-white" : "text-gray-700"
+                    }`}>
+                      <Link className="sidebar-link" href={navLink.route}>
+                        <Image
+                          src={navLink.icon}
+                          width={24}
+                          height={24}
+                          alt="link logo"
+                          className={`${isActive && "brightness-200"}`}
+                          />
+                          {navLink.label}
+                      </Link>
+                    </li>
+                  )
+                })}
+
+                <li className="flex-center cursor-pointer gap-2 pl-0.5">
+                  <UserButton afterSignOutUrl='/' showName />
+                </li>
             </ul>
           </SignedIn>
 
