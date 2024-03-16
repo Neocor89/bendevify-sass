@@ -10,6 +10,8 @@ import {
 import Image from "next/image";
 import { SignedIn, UserButton } from "@clerk/nextjs";
 
+// TODO
+//: RESTART HERE 👇
 
 const MobileNav = () => {
   return (
@@ -27,8 +29,16 @@ const MobileNav = () => {
       <SignedIn>
         <UserButton afterSignOutUrl="/"/>
           <Sheet>
-            <SheetTrigger>Open</SheetTrigger>
-            <SheetContent>
+            <SheetTrigger>
+              <Image 
+                src={"/assets/images/icons/menu.svg"}
+                alt="menu"
+                width={32}
+                height={32}
+                className="cursor-pointer"
+              />
+            </SheetTrigger>
+            <SheetContent className="sheet-content sm:w-64">
               <SheetHeader>
                 <SheetTitle>Are you absolutely sure?</SheetTitle>
                 <SheetDescription>
