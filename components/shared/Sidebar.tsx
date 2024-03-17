@@ -36,8 +36,8 @@ const Sidebar = () => {
                     <Link className="sidebar-link" href={navLink.route}>
                       <Image
                         src={navLink.icon}
-                        width={24}
-                        height={24}
+                        width={28}
+                        height={28}
                         alt="link logo"
                         className={`${isActive && "brightness-200"}`}
                         />
@@ -59,8 +59,8 @@ const Sidebar = () => {
                       <Link className="sidebar-link" href={navLink.route}>
                         <Image
                           src={navLink.icon}
-                          width={24}
-                          height={24}
+                          width={28}
+                          height={28}
                           alt="link logo"
                           className={`${isActive && "brightness-200"}`}
                           />
