@@ -7,7 +7,8 @@ interface MongooseConnection {
   promise: Promise<Mongoose> | null;
 };
 
-//: INPLEMENTED CACHE
+//* First Step
+//: INPLEMENTED CACHE DATABASE
 let cached: MongooseConnection = (global as any).mongoose;
 
 //: VERIFY AND CREATE CACHE IF NOT EXIST
@@ -28,8 +29,7 @@ export const connectToDatabase = async () => {
   if (!MONGODB_URL) throw new Error("Your MongoDB URL is missing");
 
   //: CREATE NEW CACHE PROMISE IF NOT EXIST
-  cached.promise = cached.promise || mongoose.connect(
-    MONGODB_URL, {
+  cached.promise = cached.promise || mongoose.connect(MONGODB_URL, {
     dbName: "bendevify", bufferCommands: false,
   });
 
