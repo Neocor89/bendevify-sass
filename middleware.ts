@@ -1,10 +1,10 @@
 import { authMiddleware } from "@clerk/nextjs";
  
 export default authMiddleware({
-  // Clerck authenticated routes
-  publicRoutes: ['/anyone-can-visit-this-route'],
+  //: ============ CLERK AUTH ROUTES
+  publicRoutes: ['/api/webhooks/clerk'],
   // Accessible routes, without authentication information
-  ignoredRoutes: ['/no-auth-in-this-route'],
+  // ignoredRoutes: ['/no-auth-in-this-route'],
 });
  
 export const config = {
