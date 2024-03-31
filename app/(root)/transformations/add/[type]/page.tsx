@@ -1,8 +1,21 @@
-import React from 'react';
+import Header from '@/components/shared/Header';
+import TransformationForm from '@/components/shared/TransformationForm';
+//: DATA (Constants file) 
+import { transformationTypes } from '@/constants';
 
-const AddTransformationTypePage = () => {
+
+const AddTransformationTypePage = ({ params: { type } }: SearchParamProps) => {
+  //: Take and Use data needed
+  const transformation = transformationTypes[type];
   return (
-    <div>AddTransformationTypepage</div>
+    <>
+      <Header 
+        title={transformation.title}
+        subtitle={transformation.subTitle}
+      />
+
+      <TransformationForm />
+    </>
   )
 }
 
