@@ -182,6 +182,7 @@ export const aspectRatioOptions = {
   },
 };
 
+//: ======== Default values of image properties
 export const defaultValues = {
   title: "",
   aspectRatio: "",
