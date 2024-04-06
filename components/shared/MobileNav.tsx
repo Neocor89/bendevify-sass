@@ -9,9 +9,6 @@ import { SignedIn, UserButton } from "@clerk/nextjs";
 import { navLinks } from "@/constants";
 import { usePathname } from "next/navigation";
 
-// TODO
-//: RESTART HERE 👇
-
 const MobileNav = () => {
   const pathname = usePathname();
 
