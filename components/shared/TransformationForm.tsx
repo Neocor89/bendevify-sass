@@ -1,6 +1,6 @@
 "use client"
  
-import { z } from "zod";
+import { any, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -14,18 +14,13 @@ import {
 import { Button } from "@/components/ui/button";
 import {
   Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { aspectRatioOptions, defaultValues, transformationTypes } from "@/constants";
+import { aspectRatioOptions, creditFee, defaultValues, transformationTypes } from "@/constants";
 import { CustomField } from "./CustomField";
-import { useState } from "react";
-import { AspectRatioKey } from "@/lib/utils";
+import { useState, useTransition } from "react";
+import { AspectRatioKey, debounce, deepMergeObjects } from "@/lib/utils";
+import { updateCredits } from "@/lib/actions/user.actions";
 
 
 //: === Schama for image creation
@@ -45,6 +40,7 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isTransforming, setIsTransforming] = useState(false);
   const [transformationConfig, setTransformationConfig] = useState(config)
+  const [isPending, startTransition] = useTransition()
 
   const initialValues = data && action === "Update" ? {
     title: data?.title,
@@ -65,18 +61,54 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
     console.log(values)
   }
 
-  // TODO : RESTART HERE 👇
-  //! ERROR IN 89 LIGN WITH THE onValueChange PROPERTY
+  const onSelectFieldHandler = (
+    value: string, 
+    onChangeField: (value: string) => void) => {
+    //: Get the size for implementing in Inputs
+    const imageSize = aspectRatioOptions[value as AspectRatioKey];
 
-  const onSelectFieldHandler = (value: string, onChangeField: (value: string) => void) => {
+    setImage((prevState: any) => ({
+      ...prevState,
+      aspectRatio: imageSize.aspectRatio,
+      width: imageSize.width,
+      height: imageSize.height,
+    }))
 
+    setNewTransformation(transformationType.config);
+
+    return onChangeField(value)
   }
 
   const onInputChangeHandler = (fieldName: string, value: string, type: string, onChangeField: (value: string) => void) => {
+    debounce(()=> {
+      setNewTransformation((prevState: any) => ({
+        ...prevState,
+        [type]: {
+          ...prevState?.[type],
+          [fieldName === "prompt" ? "prompt" : "to" ] : value
+        }
+      }))
 
+      return onChangeField(value)
+    }, 1000)
   }
 
-  const onTransformHandler = () => {}
+  //  TODO : RESTART HERE 👇 
+  //: FOR RETURN updateCredits FUNCTION
+  
+  const onTransformHandler = async () => {
+    setIsTransforming(true)
+
+    setTransformationConfig(
+      deepMergeObjects(newTransformation, transformationConfig)
+    )
+
+    setNewTransformation(null)
+
+    startTransition(async () => {
+      // await updateCredits(userId, creditFee)
+    })
+  }
 
   return (
     <Form {...form}>
@@ -144,14 +176,14 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
               className="w-full"
               render={({ field }) => (
                 <Input 
-                value={field.value}
-                className="input-field"
-                onChange={(e) => onInputChangeHandler(
-                  "color",  
-                  e.target.value,
-                  "recolor",
-                  field.onChange
-                  )}
+                  value={field.value}
+                  className="input-field"
+                  onChange={(e) => onInputChangeHandler(
+                    "color",  
+                    e.target.value,
+                    "recolor",
+                    field.onChange
+                    )}
                 />
               )}
             />
