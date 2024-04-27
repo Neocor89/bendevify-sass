@@ -2,9 +2,11 @@ import { UserButton } from '@clerk/nextjs';
 
 const Home = () => {
   return (
-    <div>
-      Home
-    </div>
+    <>
+      <section className="home">
+        <h1 className="home-heading">Unleash Your Creative Vision with Bendevify</h1>
+      </section>
+    </>
   )
 };
 
